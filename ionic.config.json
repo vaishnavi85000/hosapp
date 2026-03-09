@@ -1,0 +1,7 @@
+{
+  "name": "hostm-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
