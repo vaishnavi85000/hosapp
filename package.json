@@ -10,7 +10,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "stay-synced": "npx cap sync && cd android && gradlew.bat assembleDebug && cd .. && git add . && git commit -m 'Auto-Sync' && git push origin main"
+    "stay-synced": "npm run build && npx cap sync && cd android && gradlew.bat assembleDebug && cd .. && git add . && git commit -m 'Auto-Sync' && git push origin main"
   },
   "private": true,
   "dependencies": {
