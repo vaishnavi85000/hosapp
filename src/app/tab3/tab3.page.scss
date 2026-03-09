@@ -1,0 +1,59 @@
+ion-toolbar {
+  --background: #ffffff;
+  --color: #202124;
+  font-weight: 600;
+}
+
+.custom-search {
+ --background: #f1f3f4;
+  --border-radius: 12px;
+  --box-shadow: none; // Removes the heavy shadow
+  padding: 0 16px 10px 16px;
+}
+
+.tenant-list {
+  background: transparent;
+  padding: 10px;
+}
+
+.tenant-item {
+  --background: #ffffff;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  border: 1px solid #e8eaed;
+  
+  h2 {
+    font-weight: 600;
+    color: #202124;
+    font-size: 16px;
+  }
+  
+  p {
+    font-size: 13px;
+    color: #5f6368;
+  }
+
+  .status-red {
+    color: #d93025;
+    font-weight: 600;
+  }
+}
+
+.tenant-avatar {
+  background: #e8f0fe;
+  color: #1967d2;
+  font-weight: 700;
+  margin-right: 12px;
+  
+  // ADD THESE:
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Ensure the sliding container matches our radius
+ion-item-sliding {
+  margin-bottom: 8px;
+  border-radius: 12px;
+  overflow: hidden;
+}

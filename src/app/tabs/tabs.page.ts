@@ -1,18 +1,26 @@
 import { Component, EnvironmentInjector, inject } from '@angular/core';
-import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { triangle, ellipse, square } from 'ionicons/icons';
+import { GlobalUI } from '../shared'; // Path to your shared file
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss'],
-  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
+  standalone: true,
+  imports: [...GlobalUI,CommonModule],
 })
 export class TabsPage {
   public environmentInjector = inject(EnvironmentInjector);
+  userRole: 'admin' | 'tenant' = 'admin';
+  selectedTab: string = 'tab1';
 
-  constructor() {
-    addIcons({ triangle, ellipse, square });
+  constructor() { }
+
+  setCurrentTab(event: any) {
+    this.selectedTab = event.tab;
+  }
+
+  toggleRole() {
+    this.userRole = this.userRole === 'admin' ? 'tenant' : 'admin';
   }
 }

@@ -1,17 +1,81 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="tabsPage && tabsPage.userRole === 'admin' && viewMode === 'rooms'">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
     <ion-title>
-      Tab 2
+      {{ (tabsPage && tabsPage.userRole === 'admin') ? (viewMode === 'blocks' ? 'Hostel Blocks' : selectedBlockName) : 'Rent Receipts' }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div *ngIf="tabsPage?.userRole === 'admin'">
+    <div *ngIf="viewMode === 'blocks'">
+      <div class="search-bar-container">
+        <ion-item lines="none" class="search-item">
+          <ion-icon name="search-outline" slot="start"></ion-icon>
+          <ion-label color="medium">Search blocks...</ion-label>
+        </ion-item>
+      </div>
+      <h3>All Blocks</h3>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" *ngFor="let block of blocks">
+            <ion-card class="folder-card" (click)="openBlock(block.name)">
+              <ion-icon name="folder-sharp" [style.color]="block.color" class="folder-icon"></ion-icon>
+              <div class="folder-info">
+                <div class="folder-name">{{ block.name }}</div>
+                <div class="folder-stats">{{ block.count }} Rooms</div>
+              </div>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div *ngIf="viewMode === 'rooms'">
+      <ion-list lines="none">
+        <ion-item *ngFor="let room of rooms" class="room-list-item">
+          <ion-icon slot="start" [name]="room.status === 'Occupied' ? 'bed-sharp' : 'bed-outline'" [color]="room.status === 'Occupied' ? 'danger' : 'success'"></ion-icon>
+          <ion-label>
+            <h2>Room {{ room.no }}</h2>
+            <p>{{ room.type }} Sharing</p>
+          </ion-label>
+          <ion-badge slot="end" [color]="room.status === 'Occupied' ? 'light' : 'success'">{{ room.status }}</ion-badge>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <div *ngIf="tabsPage?.userRole === 'tenant'">
+    <div class="summary-card">
+      <p>Current Balance</p>
+      <h1>₹0.00</h1>
+      <ion-badge color="success">All Dues Paid</ion-badge>
+    </div>
+
+    <h3 class="section-title">History</h3>
+    <ion-list lines="full">
+      <ion-item *ngFor="let item of rentHistory">
+        <ion-icon name="cash-outline" slot="start" color="success"></ion-icon>
+        <ion-label>
+          <h2>{{ item.month }}</h2>
+          <p>Paid on {{ item.date }}</p>
+        </ion-label>
+        <ion-note slot="end" color="dark">{{ item.amount }}</ion-note>
+      </ion-item>
+    </ion-list>
+  </div>
+
 </ion-content>
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="tabsPage?.userRole === 'admin'">
+  <ion-fab-button color="primary">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

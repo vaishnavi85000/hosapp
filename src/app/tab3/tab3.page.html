@@ -1,17 +1,50 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-title>{{ tabsPage.userRole === 'admin' ? 'Tenants' : 'Support' }}</ion-title>
+  </ion-toolbar>
+  
+  <ion-toolbar *ngIf="tabsPage.userRole === 'admin'">
+    <ion-searchbar placeholder="Search tenants" (ionInput)="handleSearch($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-list *ngIf="tabsPage.userRole === 'admin'">
+    <ion-item *ngFor="let person of filteredTenants">
+      <ion-avatar slot="start">{{ person.name.charAt(0) }}</ion-avatar>
+      <ion-label>
+        <h2>{{ person.name }}</h2>
+        <p>Room {{ person.room }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="tabsPage?.userRole === 'tenant'">
+    <div class="support-intro">
+      <h3>Need Help?</h3>
+      <p>Report maintenance issues or general concerns below.</p>
+    </div>
+
+    <ion-list lines="none">
+      <ion-item class="form-item">
+        <ion-label position="stacked">Issue Type</ion-label>
+        <ion-select placeholder="Select Category">
+          <ion-select-option value="plumbing">Plumbing</ion-select-option>
+          <ion-select-option value="wifi">Wi-Fi/Internet</ion-select-option>
+          <ion-select-option value="electricity">Electricity</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Describe the problem</ion-label>
+        <ion-textarea rows="4" placeholder="e.g. The tap in my bathroom is leaking..."></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" (click)="submitComplaint()" class="ion-margin-top">
+      Submit Ticket
+    </ion-button>
+  </div>
+
 </ion-content>

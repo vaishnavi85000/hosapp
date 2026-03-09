@@ -1,17 +1,57 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title>{{ tabsPage.userRole === 'admin' ? 'Hostel Admin' : 'My Room' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="demoSwitch()">
+        <ion-icon [name]="tabsPage.userRole === 'admin' ? 'person-outline' : 'log-out-outline'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div *ngIf="tabsPage?.userRole === 'admin'">
+    <div class="quick-actions">
+       </div>
+
+    <h3>Quick Overview</h3>
+    <ion-grid>
+      </ion-grid>
+
+    <ion-list-header><ion-label>Recent Alerts</ion-label></ion-list-header>
+    <ion-card class="alert-card">
+       </ion-card>
+
+    <div class="section-header"><h3>Monthly Collection</h3></div>
+    <ion-card class="income-card">
+       </ion-card>
+  </div>
+
+  <div *ngIf="tabsPage?.userRole === 'tenant'">
+    <ion-card class="tenant-welcome-card" style="background: #e8f0fe; border-radius: 16px; margin: 0 0 20px 0;">
+      <ion-item lines="none" color="transparent">
+        <ion-avatar slot="start"><img src="https://ionicframework.com/docs/img/demos/avatar.svg" /></ion-avatar>
+        <ion-label>
+          <h2 style="font-weight: 700;">Hi, Rahul Sharma</h2>
+          <p>Room 101 • Block A</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+
+    <ion-list lines="full">
+      <ion-list-header><ion-label>My Roommates</ion-label></ion-list-header>
+      <ion-item>
+        <ion-label>Suresh Iyer</ion-label>
+        <ion-badge slot="end" color="light">Bed B</ion-badge>
+      </ion-item>
+      
+      <ion-list-header><ion-label>Quick Info</ion-label></ion-list-header>
+      <ion-item>
+        <ion-icon name="wifi-outline" slot="start" color="primary"></ion-icon>
+        <ion-label><h2>Wi-Fi Password</h2><p>Hostel_Guest_5G</p></ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
 </ion-content>
