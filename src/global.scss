@@ -34,4 +34,17 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+// @import '@ionic/angular/css/palettes/dark.system.css';
+/* Force Light Mode variables even if the system asks for dark */
+:root {
+  --ion-background-color: #ffffff !important;
+  --ion-text-color: #000000 !important;
+  --ion-item-background: #ffffff !important;
+  --ion-card-background: #ffffff !important;
+}
+
+/* Fix for Android WebView specifically */
+body {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
